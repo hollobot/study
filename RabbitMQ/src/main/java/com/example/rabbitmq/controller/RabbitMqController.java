@@ -3,6 +3,7 @@ package com.example.rabbitmq.controller;
 import com.example.rabbitmq.rabbitmq.direct.DirectProducer;
 import com.example.rabbitmq.rabbitmq.fanout.FanoutProducer;
 import com.example.rabbitmq.rabbitmq.normal.NormalProducer;
+import com.example.rabbitmq.rabbitmq.quorum.QuorumProducer;
 import com.example.rabbitmq.rabbitmq.simple.SimpleProducer;
 import com.example.rabbitmq.rabbitmq.topic.TopicProducer;
 import com.example.rabbitmq.rabbitmq.work.WorkProducer;
@@ -30,6 +31,7 @@ public class RabbitMqController {
     private final DirectProducer directProducer;
     private final TopicProducer topicProducer;
     private final NormalProducer normalProducer;
+    private final QuorumProducer quorumProducer;
 
     /**
      * 简单队列 - 发送消息
@@ -91,5 +93,15 @@ public class RabbitMqController {
     public String sendDlxMsg(@Parameter(description = "普通消息内容", required = true) @PathVariable String msg) {
         normalProducer.sendNormalMsg(msg);
         return "普通队列消息发送成功（将进入死信）：" + msg;
+    }
+
+    /**
+     * 仲裁队列
+     */
+    @GetMapping("/quorum/{msg}")
+    @Operation(summary = "仲裁队列测试", description = "一对一消费场景 仲裁队列测试")
+    public String sendQuorumMsg(@Parameter(description = "普通消息内容", required = true) @PathVariable String msg) {
+        quorumProducer.sendMsg(msg);
+        return "仲裁队列消息发送成功：" + msg;
     }
 }
