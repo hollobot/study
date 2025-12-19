@@ -8,6 +8,9 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 
+/**
+ * 工作队列消费者（多个消费者负载均衡消费）
+ */
 @Component
 public class WorkConsumer {
 
@@ -25,10 +28,6 @@ public class WorkConsumer {
         } catch (Exception e) {
             channel.basicNack(message.getMessageProperties().getDeliveryTag(), false, true);
         }
-    }
-
-    public class WorkConsumer1 {
-
     }
 
     // 消费者2

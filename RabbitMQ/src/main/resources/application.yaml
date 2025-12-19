@@ -11,6 +11,7 @@ spring:
     # 消费端核心配置（关键）
     listener:
       simple:
+        prefetch: 1 # 每次从队列中获取消息数量
         acknowledge-mode: manual # 手动确认（保证消息不丢失，核心！）
         concurrency: 1 # 最小消费线程数
         max-concurrency: 5 # 最大消费线程数

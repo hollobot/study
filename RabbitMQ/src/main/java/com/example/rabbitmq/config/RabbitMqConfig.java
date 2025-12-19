@@ -41,7 +41,7 @@ public class RabbitMqConfig {
     // ========== 发布订阅（Fanout） ==========
     @Bean
     public FanoutExchange fanoutExchange() {
-        return new FanoutExchange(FANOUT_EXCHANGE, true, false);
+         return new FanoutExchange(FANOUT_EXCHANGE, true, false);
     }
     @Bean
     public Queue fanoutQueue1() {
@@ -51,6 +51,7 @@ public class RabbitMqConfig {
     public Queue fanoutQueue2() {
         return QueueBuilder.durable(FANOUT_QUEUE_2).build();
     }
+    // 绑定队列到交换机
     @Bean
     public Binding fanoutBinding1() {
         return BindingBuilder.bind(fanoutQueue1()).to(fanoutExchange());

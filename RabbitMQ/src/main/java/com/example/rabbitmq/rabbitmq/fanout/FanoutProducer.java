@@ -5,6 +5,9 @@ import jakarta.annotation.Resource;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Component;
 
+/**
+ * 广播生产者
+ */
 @Component
 public class FanoutProducer {
     @Resource

@@ -7,6 +7,9 @@ import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Component;
 import java.io.IOException;
 
+/**
+ * 简单队列消费者
+ */
 @Component
 public class SimpleConsumer {
     // 监听简单队列

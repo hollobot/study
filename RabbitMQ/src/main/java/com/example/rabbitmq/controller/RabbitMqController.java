@@ -77,7 +77,7 @@ public class RabbitMqController {
      */
     @GetMapping("/topic/{action}/{msg}")
     @Operation(summary = "Topic 模糊路由", description = "通配符匹配路由键，如 user.add/user.update")
-    public String sendTopicMsg(@Parameter(description = "用户操作（add/update/delete）", required = true, example = "add") @PathVariable String action,
+    public String sendTopicMsg(@Parameter(description = "用户操作（user.add/user.update/user.delete）", required = true, example = "user.add") @PathVariable String action,
         @Parameter(description = "消息内容", required = true) @PathVariable String msg) {
         topicProducer.sendUserMessage(action, msg);
         return "Topic 消息发送成功（路由键：user." + action + "）：" + msg;

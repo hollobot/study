@@ -5,7 +5,9 @@ import jakarta.annotation.Resource;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Component;
 
-
+/**
+ * 工作队列生产者
+ */
 @Component
 public class WorkProducer {
     @Resource
