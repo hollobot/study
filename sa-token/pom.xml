@@ -2,31 +2,17 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.example</groupId>
-    <artifactId>study-demo</artifactId>
+    <groupId>com.shiqu</groupId>
+    <artifactId>sa-token</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>study-demo</name>
-    <description>study-demo</description>
-
-    <!--父项目必须声明为 pom 类型-->
-    <packaging>pom</packaging>
-
-    <!-- 统一版本管理 -->
+    <name>sa-token</name>
+    <description>sa-token</description>
     <properties>
         <java.version>17</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <spring-boot.version>3.0.2</spring-boot.version>
-        <hutool.version>5.8.23</hutool.version>
-        <hutool.version>5.8.23</hutool.version>
     </properties>
-
-    <!-- 声明子模块 -->
-    <modules>
-        <module>RabbitMQ</module>
-    </modules>
-
-    <!-- 所有子模块都需要的依赖 -->
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -39,21 +25,24 @@
             <scope>test</scope>
         </dependency>
 
+        <!-- Sa-Token 权限认证，在线文档：https://sa-token.cc -->
         <dependency>
-            <groupId>cn.hutool</groupId>
-            <artifactId>hutool-all</artifactId>
+            <groupId>cn.dev33</groupId>
+            <artifactId>sa-token-spring-boot3-starter</artifactId>
+            <version>1.44.0</version>
         </dependency>
 
-        <!-- Jackson -->
         <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+            <version>2.2.0</version>
         </dependency>
 
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
         </dependency>
+
     </dependencies>
     <dependencyManagement>
         <dependencies>
@@ -63,16 +52,6 @@
                 <version>${spring-boot.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
-            </dependency>
-            <dependency>
-                <groupId>cn.hutool</groupId>
-                <artifactId>hutool-all</artifactId>
-                <version>${hutool.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.projectlombok</groupId>
-                <artifactId>lombok</artifactId>
-                <version>1.18.30</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -94,7 +73,7 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <version>${spring-boot.version}</version>
                 <configuration>
-                    <mainClass>com.example.StudyDemoApplication</mainClass>
+                    <mainClass>com.shiqu.satoken.SaTokenApplication</mainClass>
                     <skip>true</skip>
                 </configuration>
                 <executions>
