@@ -16,9 +16,9 @@ public class SwaggerConfig {
         return new OpenAPI()
             // 文档基本信息
             .info(new Info()
-                .title("RabbitMQ 消息发送接口文档")
+                .title("sa-token 接口文档")
                 .version("1.0")
-                .description("基于 Spring Boot + RabbitMQ 的消息发送接口，支持简单队列、工作队列、发布订阅等场景")
+                .description("Sa-Token 是一个轻量级 Java 权限认证框架，主要解决：登录认证、权限认证、单点登录、OAuth2.0、分布式Session会话、微服务网关鉴权 等一系列权限相关问题")
                 .contact(new Contact() // 联系人信息（可选）
                     .name("hello")
                     .email("dev@example.com")));

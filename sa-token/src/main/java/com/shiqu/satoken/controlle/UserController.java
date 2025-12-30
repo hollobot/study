@@ -1,5 +1,7 @@
 package com.shiqu.satoken.controlle;
 
+import cn.dev33.satoken.annotation.SaCheckLogin;
+import cn.dev33.satoken.session.SaTerminalInfo;
 import cn.dev33.satoken.stp.StpUtil;
 import cn.dev33.satoken.util.SaResult;
 import io.swagger.v3.oas.annotations.Operation;
@@ -7,36 +9,38 @@ import io.swagger.v3.oas.annotations.Parameter;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
 @RestController
-@RequestMapping("/user/")
+@RequestMapping("/api/user/")
 public class UserController {
 
     // 测试登录，浏览器访问： http://localhost:8081/user/doLogin?username=zhang&password=123456
-    @Operation(summary = "测试登录", description = "sa-token 模拟登录鉴权")
+    @Operation(summary = "登录", description = "sa-token 模拟登录鉴权")
     @PostMapping("doLogin")
-    public SaResult doLogin(
-        @Parameter(description = "账号ID",example = "hello") @RequestParam String name,
-        @Parameter(description = "密码",example = "123456")@RequestParam String pwd)
-    {
+    public SaResult doLogin(@Parameter(description = "账号ID", example = "hello") @RequestParam String name,
+        @Parameter(description = "密码", example = "123456") @RequestParam String pwd) {
         // 第一步：比对前端提交的账号名称、密码
         if ("hello".equals(name) && "123456".equals(pwd)) {
-            // 第二步：根据账号id，进行登录
-            StpUtil.login(10001);
+            // 校验指定账号是否已被封禁，如果被封禁则抛出异常 `DisableServiceException`
+            StpUtil.checkDisable(10001);
+            // 通过校验后，再进行登录：
+            StpUtil.login(10001, "WEB");
             return SaResult.ok("登录成功");
         }
         return SaResult.error("登录失败");
     }
 
     // 查询登录状态，浏览器访问： http://localhost:8081/user/isLogin
-    @Operation(summary = "测试是否登录", description = "测试是否登录")
+    @Operation(summary = "查询是否登录", description = "测试是否登录")
     @GetMapping("isLogin")
     public String isLogin() {
         return "当前会话是否登录：" + StpUtil.isLogin();
     }
 
+    @SaCheckLogin
     @Operation(summary = "查询登录信息", description = "查询登录信息")
     @GetMapping("loginInfo")
     public Object loginInfo() {
@@ -50,22 +54,15 @@ public class UserController {
     }
 
     /**
-     * @param device
-     *      * "PC"       // 电脑端
-     *      * "APP"      // 手机 APP
-     *      * "WAP"      // 手机浏览器/H5
-     *      * "WEB"      // 网页端
-     *      * "MINI"     // 小程序
-     *      * "IOS"      // iOS 设备
-     *      * "ANDROID"  // Android 设备
+     * @param device * "PC"       // 电脑端 * "APP"      // 手机 APP * "WAP"      // 手机浏览器/H5 * "WEB"      // 网页端 * "MINI"     // 小程序 * "IOS"      //
+     *     iOS 设备 * "ANDROID"  // Android 设备
      * @return
      */
     @Operation(summary = "踢人下线", description = "踢人下线")
     @PostMapping("logout")
-    public Object logout(
-        @Parameter(description = "操作类型：1-踢下线，其他-注销下线",example = "1") @RequestParam(required = false) String type,
-        @Parameter(description = "账号ID",example = "10001") @RequestParam(required = false) String id,
-        @Parameter(description = "设备标识",example = "PC") @RequestParam(required = false) String device,
+    public Object logout(@Parameter(description = "操作类型：1-踢下线，其他-注销下线", example = "1") @RequestParam(required = false) String type,
+        @Parameter(description = "账号ID", example = "10001") @RequestParam(required = false) String id,
+        @Parameter(description = "设备标识", example = "PC") @RequestParam(required = false) String device,
         @Parameter(description = "Token值") @RequestParam(required = false) String token) {
 
         if (Objects.nonNull(id) && Objects.nonNull(device)) {
@@ -96,6 +93,25 @@ public class UserController {
         }
 
         return "ok";
+    }
+
+    @Operation(summary = "账户封禁", description = "账户封禁")
+    @GetMapping("disable/{TTL}")
+    public Object disable(@Parameter(description = "账户封禁时长 单位秒", example = "10") @PathVariable("TTL") Long TTL) {
+        Object id = StpUtil.getLoginIdByToken(StpUtil.getTokenValue());
+        // 先踢下线
+        StpUtil.kickout(id);
+        // 再封禁账号
+        StpUtil.disable(id, TTL);
+        return "封禁：" + TTL + "秒后解封";
+    }
+
+    @Operation(summary = "会话查询", description = "会话查询")
+    @GetMapping("session")
+    public Object session() {
+        Object id = StpUtil.getLoginIdByToken(StpUtil.getTokenValue());
+        List<SaTerminalInfo> terminalListByLoginId = StpUtil.getTerminalListByLoginId(id);
+        return terminalListByLoginId;
     }
 
 }

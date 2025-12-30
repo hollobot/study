@@ -13,6 +13,7 @@ public class SaTokenApplication {
         SpringApplication.run(SaTokenApplication.class, args);
         System.out.println("启动成功，Sa-Token 配置如下：" + SaManager.getConfig());
         log.info("http://127.0.0.1:8080/swagger-ui/index.html");
+        log.info("http://127.0.0.1:8080/doc.html");
     }
 
 }
