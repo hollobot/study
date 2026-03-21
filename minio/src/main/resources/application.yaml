@@ -1,0 +1,20 @@
+# 应用服务 WEB 访问端口
+server:
+  port: 8080
+
+
+
+
+
+
+minio:
+  endpoint: http://192.168.30.129:9000      # MinIO 服务地址
+  access-key: minioadmin               # 账号
+  secret-key: minioadmin            # 密码
+  bucket-name: test              # 默认 Bucket (文件夹)
+
+spring:
+  servlet:
+    multipart:
+      max-file-size: 500MB             # 单文件最大限制
+      max-request-size: 500MB          # 请求最大限制
