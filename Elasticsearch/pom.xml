@@ -3,30 +3,16 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.example</groupId>
-    <artifactId>study-demo</artifactId>
+    <artifactId>Elasticsearch</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>study-demo</name>
-    <description>study-demo</description>
-
-    <!--父项目必须声明为 pom 类型-->
-    <packaging>pom</packaging>
-
-    <!-- 统一版本管理 -->
+    <name>Elasticsearch</name>
+    <description>Demo project for Spring Boot</description>
     <properties>
         <java.version>17</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <spring-boot.version>3.0.2</spring-boot.version>
-        <hutool.version>5.8.23</hutool.version>
-        <hutool.version>5.8.23</hutool.version>
     </properties>
-
-    <!-- 声明子模块 -->
-    <modules>
-        <module>RabbitMQ</module>
-    </modules>
-
-    <!-- 所有子模块都需要的依赖 -->
     <dependencies>
 
         <dependency>
@@ -34,28 +20,30 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
 
+        <!-- Spring Data Elasticsearch -->
         <dependency>
-            <groupId>cn.hutool</groupId>
-            <artifactId>hutool-all</artifactId>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-elasticsearch</artifactId>
         </dependency>
 
-        <!-- Jackson -->
+        <!-- 接口测试 -->
         <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
+            <groupId>com.github.xiaoymin</groupId>
+            <artifactId>knife4j-openapi3-jakarta-spring-boot-starter</artifactId>
+            <version>4.4.0</version>
         </dependency>
 
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
         </dependency>
+
     </dependencies>
     <dependencyManagement>
         <dependencies>
@@ -65,16 +53,6 @@
                 <version>${spring-boot.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
-            </dependency>
-            <dependency>
-                <groupId>cn.hutool</groupId>
-                <artifactId>hutool-all</artifactId>
-                <version>${hutool.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.projectlombok</groupId>
-                <artifactId>lombok</artifactId>
-                <version>1.18.30</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -96,7 +74,7 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <version>${spring-boot.version}</version>
                 <configuration>
-                    <mainClass>com.example.StudyDemoApplication</mainClass>
+                    <mainClass>com.example.Elasticsearch.ElasticsearchApplication</mainClass>
                     <skip>true</skip>
                 </configuration>
                 <executions>

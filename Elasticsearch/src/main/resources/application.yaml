@@ -1,0 +1,12 @@
+server:
+  port: 8080
+
+
+spring:
+  elasticsearch:
+    uris: http://192.168.30.129:9200
+    # 若开启了安全认证，填写用户名密码
+    username: elastic
+    password: 1+1=2yes
+    connection-timeout: 5s
+    socket-timeout: 30s

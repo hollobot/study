@@ -1,0 +1,17 @@
+package com.example.Elasticsearch;
+
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@Slf4j
+@SpringBootApplication
+public class ElasticsearchApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(ElasticsearchApplication.class, args);
+        log.info("http://127.0.0.1:8080/swagger-ui/index.html");
+        log.info("http://127.0.0.1:8080/doc.html");
+    }
+
+}
