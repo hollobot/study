@@ -12,9 +12,9 @@ openai:
     
     
     
-#logging:
-#  level:
-#    dev.langchain4j: DEBUG          # 核心！
-#    dev.langchain4j.ollama: DEBUG
-#    dev.langchain4j.zhipu: DEBUG    # 智谱日志
-#    dev.langchain4j.model: DEBUG
+logging:
+  level:
+    dev.langchain4j: DEBUG          # 核心！
+    dev.langchain4j.ollama: DEBUG
+    dev.langchain4j.zhipu: DEBUG    # 智谱日志
+    dev.langchain4j.model: DEBUG

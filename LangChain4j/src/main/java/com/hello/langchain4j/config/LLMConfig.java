@@ -1,7 +1,9 @@
 package com.hello.langchain4j.config;
 
+import dev.langchain4j.community.model.zhipu.ZhipuAiChatModel;
 import dev.langchain4j.community.model.zhipu.ZhipuAiStreamingChatModel;
 import dev.langchain4j.community.model.zhipu.chat.ChatCompletionModel;
+import dev.langchain4j.model.chat.ChatLanguageModel;
 import dev.langchain4j.model.chat.StreamingChatLanguageModel;
 import dev.langchain4j.model.ollama.OllamaStreamingChatModel;
 import dev.langchain4j.model.openai.OpenAiStreamingChatModel;
@@ -30,7 +32,6 @@ public class LLMConfig {
             .modelName("gpt-3.5-turbo")
             .temperature(0.7)
             .logRequests(true)
-            .logResponses(true)
             .build();
     }
 
@@ -40,14 +41,29 @@ public class LLMConfig {
         return ZhipuAiStreamingChatModel.builder()
             .apiKey(zhipuKey)
             .model(ChatCompletionModel.GLM_4_FLASH)
-            .temperature(0.6)
+            .temperature(0.9)
             .maxToken(99999)
             .callTimeout(Duration.ofSeconds(60))
             .connectTimeout(Duration.ofSeconds(60))
             .writeTimeout(Duration.ofSeconds(60))
             .readTimeout(Duration.ofSeconds(60))
             .logRequests(true)
-            .logResponses(true)
+            .build();
+    }
+
+    // 智谱AI 流式模型
+    @Bean(name = "glmModel")
+    public ChatLanguageModel glmModel() {
+        return ZhipuAiChatModel.builder()
+            .apiKey(zhipuKey)
+            .model(ChatCompletionModel.GLM_4_FLASH)
+            .temperature(0.9)
+            .maxToken(99999)
+            .callTimeout(Duration.ofSeconds(60))
+            .connectTimeout(Duration.ofSeconds(60))
+            .writeTimeout(Duration.ofSeconds(60))
+            .readTimeout(Duration.ofSeconds(60))
+            .logRequests(true)
             .build();
     }
 
@@ -62,7 +78,6 @@ public class LLMConfig {
             .modelName(MODEL_NAME)
             .temperature(0.0)
             .logRequests(true)
-            .logResponses(true)
             .build();
     }
 }
