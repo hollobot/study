@@ -5,6 +5,8 @@ import dev.langchain4j.community.model.zhipu.ZhipuAiStreamingChatModel;
 import dev.langchain4j.community.model.zhipu.chat.ChatCompletionModel;
 import dev.langchain4j.model.chat.ChatLanguageModel;
 import dev.langchain4j.model.chat.StreamingChatLanguageModel;
+import dev.langchain4j.model.embedding.EmbeddingModel;
+import dev.langchain4j.model.ollama.OllamaEmbeddingModel;
 import dev.langchain4j.model.ollama.OllamaStreamingChatModel;
 import dev.langchain4j.model.openai.OpenAiStreamingChatModel;
 import org.springframework.beans.factory.annotation.Value;
@@ -71,6 +73,7 @@ public class LLMConfig {
     static String BASE_URL = "http://192.168.30.130:11434"; // local ollama base url
 
 
+    /** 本地对话大模型 */
     @Bean(name = "ollamaStreamingModel")
     public StreamingChatLanguageModel OllamaStreamingModel() {
         return OllamaStreamingChatModel.builder()
@@ -78,6 +81,26 @@ public class LLMConfig {
             .modelName(MODEL_NAME)
             .temperature(0.0)
             .logRequests(true)
+            .build();
+    }
+
+
+
+    /** 向量大模型 */
+    @Bean(name = "nomicEmbedTextModel")
+    public EmbeddingModel nomicEmbedTextModel() {
+        return OllamaEmbeddingModel.builder()
+            .baseUrl(BASE_URL)
+            .modelName("nomic-embed-text")
+            .build();
+    }
+
+    /** 向量大模型 */
+    @Bean(name = "bGEM3")
+    public EmbeddingModel bGEM3Model() {
+        return OllamaEmbeddingModel.builder()
+            .baseUrl(BASE_URL)
+            .modelName("bge-m3")
             .build();
     }
 }

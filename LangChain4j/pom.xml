@@ -62,19 +62,34 @@
             <version>${langchain4j.version}</version>
         </dependency>
 
+        <!--质谱模型-->
         <dependency>
             <groupId>dev.langchain4j</groupId>
             <artifactId>langchain4j-community-zhipu-ai</artifactId>
             <version>1.0.0-alpha1</version>
         </dependency>
 
+        <!--ollama本地模型-->
         <dependency>
             <groupId>dev.langchain4j</groupId>
             <artifactId>langchain4j-ollama</artifactId>
             <version>${langchain4j.version}</version>
         </dependency>
 
+        <!--向量数据库：elasticsearch-->
+        <dependency>
+            <groupId>dev.langchain4j</groupId>
+            <artifactId>langchain4j-elasticsearch</artifactId>
+            <version>${langchain4j.version}</version>
+        </dependency>
 
+
+        <!-- Markdown 解析支持 -->
+        <dependency>
+            <groupId>dev.langchain4j</groupId>
+            <artifactId>langchain4j-document-parser-apache-tika</artifactId>
+            <version>${langchain4j.version}</version>
+        </dependency>
     </dependencies>
 
 
