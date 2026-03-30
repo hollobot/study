@@ -6,7 +6,7 @@ spring:
       max-request-size: 50MB
 
 zhipu:
-  api-key: acff095804514aa996485eb9be76cdd3.OxuBDUhcZ8vynZaL
+  api-key: dca6077c862f40fc9d289fe39ba51325.UQWWSQ0BFmOGz5uM
 
 openai:
   api-key: acff095804514aa996485eb9be76cdd3.OxuBDUhcZ8vynZaL

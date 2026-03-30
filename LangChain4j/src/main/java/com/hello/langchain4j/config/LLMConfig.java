@@ -66,6 +66,7 @@ public class LLMConfig {
             .writeTimeout(Duration.ofSeconds(60))
             .readTimeout(Duration.ofSeconds(60))
             .logRequests(true)
+            .logResponses(true)
             .build();
     }
 

@@ -48,7 +48,7 @@ public class StreamingChatService {
      * @return 流式对象
      */
     public Flux<String> streamWithOllama(SystemMessage systemMessage, UserMessage userMessage) {
-        return buildFlux(ollamaStreamingModel, systemMessage, userMessage);
+        return buildFlux(zhipuStreamingModel, systemMessage, userMessage);
     }
 
     /**
