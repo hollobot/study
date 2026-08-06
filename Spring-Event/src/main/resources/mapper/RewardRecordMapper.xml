@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hello.springevent.mapper.RewardRecordMapper">
+
+    <insert id="insertPending" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO sq_reward_record
+        (user_id, biz_type, biz_id, coin_delta, point_delta, experience_delta, growth_delta, status)
+        VALUES
+        (#{userId}, #{bizType}, #{bizId}, #{coinDelta}, #{pointDelta}, #{experienceDelta}, #{growthDelta}, 'PENDING')
+    </insert>
+
+    <select id="selectByBiz" resultType="com.hello.springevent.domain.RewardRecord">
+        SELECT id,
+               user_id,
+               biz_type,
+               biz_id,
+               coin_delta,
+               point_delta,
+               experience_delta,
+               growth_delta,
+               status,
+               create_time
+        FROM sq_reward_record
+        WHERE biz_type = #{bizType}
+          AND biz_id = #{bizId}
+    </select>
+
+    <select id="selectByIdForUpdate" resultType="com.hello.springevent.domain.RewardRecord">
+        SELECT id,
+               user_id,
+               biz_type,
+               biz_id,
+               coin_delta,
+               point_delta,
+               experience_delta,
+               growth_delta,
+               status,
+               create_time
+        FROM sq_reward_record
+        WHERE id = #{rewardRecordId}
+        FOR UPDATE
+    </select>
+
+    <select id="selectPending" resultType="com.hello.springevent.domain.RewardRecord">
+        SELECT id,
+               user_id,
+               biz_type,
+               biz_id,
+               coin_delta,
+               point_delta,
+               experience_delta,
+               growth_delta,
+               status,
+               create_time
+        FROM sq_reward_record
+        WHERE status = 'PENDING'
+        ORDER BY id
+        LIMIT #{limit}
+    </select>
+
+    <update id="markSuccess">
+        UPDATE sq_reward_record
+        SET status = 'SUCCESS',
+            finish_time = NOW(),
+            update_time = NOW()
+        WHERE id = #{rewardRecordId}
+    </update>
+</mapper>
+

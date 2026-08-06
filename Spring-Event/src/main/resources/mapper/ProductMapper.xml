@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hello.springevent.mapper.ProductMapper">
+
+    <select id="selectById" resultType="com.hello.springevent.domain.Product">
+        SELECT id,
+               product_name,
+               coin_price,
+               reward_point,
+               enabled
+        FROM sq_virtual_product
+        WHERE id = #{productId}
+    </select>
+</mapper>
+

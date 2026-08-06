@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hello.springevent.mapper.PetInteractionLogMapper">
+
+    <insert id="insertLog" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO sq_pet_interaction_log
+        (user_id, action_type, item_code, satiety_delta, clean_delta, energy_delta, growth_delta)
+        VALUES
+        (#{userId}, #{actionType}, #{itemCode}, #{satietyDelta}, #{cleanDelta}, #{energyDelta}, #{growthDelta})
+    </insert>
+</mapper>

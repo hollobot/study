@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hello.springevent.mapper.PetMapper">
+
+    <insert id="ensurePet">
+        INSERT INTO sq_pet_profile (user_id, level, satiety, clean_value, energy_value, growth_value)
+        VALUES (#{userId}, 1, 60, 60, 60, 0)
+        ON DUPLICATE KEY UPDATE user_id = user_id
+    </insert>
+
+    <update id="applyInteraction">
+        UPDATE sq_pet_profile
+        SET satiety = LEAST(100, GREATEST(0, satiety + #{satietyDelta})),
+            clean_value = LEAST(100, GREATEST(0, clean_value + #{cleanDelta})),
+            energy_value = LEAST(100, GREATEST(0, energy_value + #{energyDelta})),
+            growth_value = growth_value + #{growthDelta},
+            level = 1 + FLOOR((growth_value + #{growthDelta}) / 100),
+            update_time = NOW()
+        WHERE user_id = #{userId}
+    </update>
+
+    <update id="addGrowth">
+        UPDATE sq_pet_profile
+        SET growth_value = growth_value + #{growthDelta},
+            level = 1 + FLOOR((growth_value + #{growthDelta}) / 100),
+            update_time = NOW()
+        WHERE user_id = #{userId}
+    </update>
+
+    <select id="selectOverview" resultType="com.hello.springevent.domain.UserOverview">
+        SELECT a.user_id,
+               a.coin,
+               a.point,
+               a.experience,
+               p.level AS pet_level,
+               p.satiety AS pet_satiety,
+               p.clean_value AS pet_clean_value,
+               p.energy_value AS pet_energy_value,
+               p.growth_value AS pet_growth_value
+        FROM sq_user_asset a
+        JOIN sq_pet_profile p ON p.user_id = a.user_id
+        WHERE a.user_id = #{userId}
+    </select>
+</mapper>
+

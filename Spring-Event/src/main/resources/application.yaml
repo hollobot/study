@@ -1,0 +1,27 @@
+spring:
+  application:
+    name: Spring-Event
+  datasource:
+    url: jdbc:mysql://localhost:3306/shiqu_ai_demo?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+mybatis:
+  mapper-locations: classpath*:mapper/*.xml
+  type-aliases-package: com.hello.springevent.domain
+  configuration:
+    map-underscore-to-camel-case: true
+
+redis:
+  host: 127.0.0.1
+  port: 6379
+  password: 123456
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    tags-sorter: alpha
+    operations-sorter: method
+  api-docs:
+    path: /v3/api-docs
